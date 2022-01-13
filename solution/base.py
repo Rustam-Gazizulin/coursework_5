@@ -12,7 +12,7 @@ class BaseSingleton(type):
 
 
 class Arena(metaclass=BaseSingleton):
-    STAMINA_PER_ROUND = 3
+    STAMINA_PER_ROUND = 1
     player = None
     enemy = None
     game_is_running = False
@@ -38,11 +38,11 @@ class Arena(metaclass=BaseSingleton):
         if self.player.stamina + self.STAMINA_PER_ROUND > self.player.unit_class.max_stamina:
             self.player.stamina = self.player.unit_class.max_stamina
         elif self.player.stamina < self.player.unit_class.max_stamina:
-            self.player.stamina += self.STAMINA_PER_ROUND - self.player.armor.stamina_per_turn
+            self.player.stamina += self.STAMINA_PER_ROUND
         if self.enemy.stamina + self.STAMINA_PER_ROUND > self.enemy.unit_class.max_stamina:
             self.enemy.stamina = self.enemy.unit_class.max_stamina
         elif self.enemy.stamina < self.enemy.unit_class.max_stamina:
-            self.enemy.stamina += self.STAMINA_PER_ROUND - self.enemy.armor.stamina_per_turn
+            self.enemy.stamina += self.STAMINA_PER_ROUND
 
 
     def _check_players_hp(self):

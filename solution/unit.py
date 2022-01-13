@@ -65,7 +65,7 @@ class BaseUnit(ABC):
 class PlayerUnit(BaseUnit):
 
     def hit(self, target: BaseUnit) -> str:
-        if self.stamina >= self.weapon.stamina_per_hit:
+        if self.stamina >= self.weapon.stamina_per_hit * self.unit_class.stamina:
             damage = self._count_damage(target)
             if damage:
                 return f"{self.name} используя {self.weapon.name} пробивает {target.armor.name} соперника и наносит {damage} урона."
@@ -77,7 +77,7 @@ class EnemyUnit(BaseUnit):
     def hit(self, target: BaseUnit) -> str:
         if randint(0, 100) < 10 and self.stamina >= self.unit_class.skill.stamina and not self._is_skill_used:
             return self.use_skill(target)
-        if self.stamina >= self.weapon.stamina_per_hit:
+        if self.stamina >= self.weapon.stamina_per_hit * self.unit_class.stamina:
             damage = self._count_damage(target)
             if damage:
                 return f"{self.name} используя {self.weapon.name} пробивает {target.armor.name} и наносит Вам {damage} урона."
