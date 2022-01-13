@@ -5,13 +5,13 @@
     "name": "топорик",
     "min_damage": 2.5,
     "max_damage": 4.1,
-    "stamina_per_hit": 2
+    "stamina_per_hit": 1.8
   },
   {
     "id": 2,
     "name": "ножик",
-    "min_damage": 1.8,
-    "max_damage": 3.0,
+    "min_damage": 1.2,
+    "max_damage": 2.5,
     "stamina_per_hit": 1.3
   },
   {
