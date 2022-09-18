@@ -55,7 +55,7 @@ class FuryPunch(Skill):
     def skill_effect(self):
         self.user.stamina -= self.stamina
         self.target.get_damage(self.damage)
-        return
+        return f"{self.}"
         # TODO логика использования скилла -> return str
         # TODO в классе нам доступны экземпляры user и target - можно использовать любые их методы
         # TODO именно здесь происходит уменшение стамины у игрока применяющего умение и
