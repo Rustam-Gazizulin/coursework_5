@@ -12,8 +12,7 @@ arena =  ... # TODO инициализируем класс арены
 
 @app.route("/")
 def menu_page():
-    # TODO рендерим главное меню (шаблон index.html)
-    pass
+    return render_template('index.html')
 
 
 @app.route("/fight/")

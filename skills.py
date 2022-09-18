@@ -5,13 +5,8 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from unit import BaseUnit
 
-class Skill(ABC):
-    """
-    Базовый класс умения
-    """
-    user = None
-    target = None
 
+class SkilABC(ABC):
     @property
     @abstractmethod
     def name(self):
@@ -27,10 +22,21 @@ class Skill(ABC):
     def damage(self):
         pass
 
-    @abstractmethod
-    def skill_effect(self) -> str:
 
-        pass
+class Skill(SkilABC):
+    """
+    Базовый класс умения
+    """
+    user = None
+    target = None
+    name = None
+    stamina = None
+    damage = None
+
+    def skill_effect(self) -> str:
+        self.user.stamina -= self.stamina
+        self.target.get_damage(self.damage)
+        return f"{self.user.name} использует {self.name} и наносит {self.damage} урона сопернику."
 
     def _is_stamina_enough(self):
         return self.user.stamina > self.stamina
@@ -52,21 +58,8 @@ class FuryPunch(Skill):
     stamina = 6
     damage = 12
 
-    def skill_effect(self):
-        self.user.stamina -= self.stamina
-        self.target.get_damage(self.damage)
-        return f"{self.}"
-        # TODO логика использования скилла -> return str
-        # TODO в классе нам доступны экземпляры user и target - можно использовать любые их методы
-        # TODO именно здесь происходит уменшение стамины у игрока применяющего умение и
-        # TODO уменьшение здоровья цели.
-        # TODO результат применения возвращаем строкой
-        pass
 
 class HardShot(Skill):
     name = "Мощный укол"
     stamina = 5
     damage = 15
-
-    def skill_effect(self):
-        pass
