@@ -1,26 +1,57 @@
-import json
+# import json
+#
+#
+# class TextFile:
+#     def read(self, file):
+#         with open(file) as f:
+#             return f.read()
+#         pass
+#
+#     def write(self, file, lines):
+#         pass
+#
+# class JSONFile:
+#     def read(self, file):
+#         with open(file) as f:
+#             return json.load(f)
+#
+#         pass
+#
+#     def write(self, file, lines):
+#         pass
+#
+# file_processor = JSONFile()
+#
+# data = file_processor.read("data.json")
+# print(data)
 
 
-class TextFile:
-    def read(self, file):
-        with open(file) as f:
-            return f.read()
+class PlayerRecord:
+    @staticmethod
+    def get_top_10():
         pass
 
-    def write(self, file, lines):
-        pass
-    
-class JSONFile:
-    def read(self, file):
-        with open(file) as f:
-            return json.load(f)
-
+    @staticmethod
+    def get_top_100():
         pass
 
-    def write(self, file, lines):
+    @staticmethod
+    def add_record(record):
         pass
 
-file_processor = JSONFile()
+top_10 = PlayerRecord.get_top_100()
 
-data = file_processor.read("data.json")
-print(data)
+
+class Cat:
+    def say(self):
+        self.what_does_cat_say()
+
+    @staticmethod
+    def what_does_cat_say():
+        print("myau")
+
+Cat.what_does_cat_say()
+
+cat1 = Cat()
+cat1.what_does_cat_say()
+cat1.say()
