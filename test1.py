@@ -1,57 +1,83 @@
-# import json
-#
-#
-# class TextFile:
-#     def read(self, file):
-#         with open(file) as f:
-#             return f.read()
-#         pass
-#
-#     def write(self, file, lines):
-#         pass
-#
-# class JSONFile:
-#     def read(self, file):
-#         with open(file) as f:
-#             return json.load(f)
-#
-#         pass
-#
-#     def write(self, file, lines):
-#         pass
-#
-# file_processor = JSONFile()
-#
-# data = file_processor.read("data.json")
-# print(data)
+from abc import ABC, abstractmethod
 
 
-class PlayerRecord:
-    @staticmethod
-    def get_top_10():
+class AbstractCar(ABC):
+    @abstractmethod
+    def delivery_by_land(self):
         pass
 
-    @staticmethod
-    def get_top_100():
+
+class AbstractShip(ABC):
+    @abstractmethod
+    def delivery_by_sea(self):
         pass
 
-    @staticmethod
-    def add_record(record):
+
+class AbstractTransportFactory(ABC):
+    @abstractmethod
+    def create_car(self) -> AbstractCar:
         pass
 
-top_10 = PlayerRecord.get_top_100()
+    @abstractmethod
+    def create_ship(self) -> AbstractShip:
+        pass
 
 
-class Cat:
-    def say(self):
-        self.what_does_cat_say()
+class TeslaX(AbstractCar):
+    def delivery_by_land(self):
+        print("Fast delivery")
 
-    @staticmethod
-    def what_does_cat_say():
-        print("myau")
 
-Cat.what_does_cat_say()
+class HeavyTruck(AbstractCar):
+    def delivery_by_land(self):
+        print("Slow delivery")
 
-cat1 = Cat()
-cat1.what_does_cat_say()
-cat1.say()
+
+class RubberBoat(AbstractShip):
+    def delivery_by_sea(self):
+        print("Fast deliver sea")
+
+
+class CargoShip(AbstractShip):
+    def delivery_by_sea(self):
+        print("Slow deliver sea")
+
+
+class UsualTransportFactory(AbstractTransportFactory):
+    def create_car(self) -> AbstractCar:
+        return TeslaX()
+
+    def create_ship(self) -> AbstractShip:
+        return RubberBoat()
+
+
+class CargoTransportFactory(AbstractTransportFactory):
+    def create_car(self) -> AbstractCar:
+        return HeavyTruck()
+
+    def create_ship(self) -> AbstractShip:
+        return CargoShip()
+
+
+class Warehouse:
+    factory: AbstractTransportFactory
+
+    def __init__(self, factory: AbstractTransportFactory):
+        self.factory = factory
+
+    def deliver_with_ship(self):
+        ship = self.factory.create_ship()
+        ship.delivery_by_sea()
+
+    def deliver_with_car(self):
+        car = self.factory.create_car()
+        car.delivery_by_land()
+
+
+warehouse = Warehouse(factory=CargoTransportFactory())
+warehouse.deliver_with_car()
+warehouse.deliver_with_ship()
+
+warehouse = Warehouse(factory=UsualTransportFactory())
+#warehouse.deliver_with_car()
+warehouse.deliver_with_ship()
