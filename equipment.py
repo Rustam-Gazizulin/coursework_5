@@ -41,9 +41,6 @@ class Equipment:
 
     def get_weapon(self, weapon_name) -> Weapon:
         return next(filter(lambda weapon: weapon.name == weapon_name, self.equipment.weapons))
-        # for weapon in self.equipment.weapons:
-        #     if weapon_name == weapon.name:
-        #         return weapon
 
     def get_armor(self, armor_name) -> Armor:
         return next(filter(lambda armor: armor.name == armor_name, self.equipment.armors))

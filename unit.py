@@ -13,31 +13,36 @@ class BaseUnit(ABC):
         """
         При инициализации класса Unit используем свойства класса UnitClass
         """
-        self.name = ...
+        self.name = name
         self.unit_class = unit_class
         self.hp = unit_class.max_health
         self.stamina = unit_class.max_stamina
-        self.weapon = ...
-        self.armor = ...
-        self._is_skill_used = ...
+        self.weapon = None
+        self.armor = None
+        self._is_skill_used = False
 
     @property
     def health_points(self):
-        return # TODO возвращаем аттрибут hp в красивом виде
+        return round(self.hp, 1)
+        # TODO возвращаем аттрибут hp в красивом виде
 
     @property
     def stamina_points(self):
-        return  # TODO возвращаем аттрибут hp в красивом виде
+        return round(self.stamina, 1)
+        # TODO возвращаем аттрибут hp в красивом виде
 
     def equip_weapon(self, weapon: Weapon):
+        self.weapon = weapon
         # TODO присваиваем нашему герою новое оружие
         return f"{self.name} экипирован оружием {self.weapon.name}"
 
     def equip_armor(self, armor: Armor):
+        self.armor = armor
         # TODO одеваем новую броню
-        return f"{self.name} экипирован броней {self.weapon.name}"
+        return f"{self.name} экипирован броней {self.armor.name}"
 
     def _count_damage(self, target: BaseUnit) -> int:
+
         # TODO Эта функция должна содержать:
         #  логику расчета урона игрока
         #  логику расчета брони цели
