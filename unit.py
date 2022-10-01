@@ -11,6 +11,7 @@ class BaseUnit(ABC):
     """
     Базовый класс юнита
     """
+
     def __init__(self, name: str, unit_class: UnitClass):
         """
         При инициализации класса Unit используем свойства класса UnitClass
@@ -73,8 +74,6 @@ class BaseUnit(ABC):
         # TODO получение урона целью
         #      присваиваем новое значение для аттрибута self.hp
 
-
-
     def hit(self, target: BaseUnit) -> str:
         """
         Этот метод не будет переопределен ниже
@@ -104,6 +103,14 @@ class BaseUnit(ABC):
                 self._is_skill_used = True
             return self.unit_class.skill.use(user=self, target=target)
 
+    def add_stamina(self, stamina_point):
+        stamina_growth = stamina_point * self.unit_class.stamina
+        if self.stamina + stamina_growth > self.unit_class.max_stamina:
+            self.stamina = self.unit_class.max_stamina
+        else:
+            self.stamina += stamina_growth
+
+
 
 class PlayerUnit(BaseUnit):
     pass
@@ -124,9 +131,4 @@ class EnemyUnit(BaseUnit):
             return self.use_skill(target)
         return super().hit(target)
 
-
-
         # TODO результат функции должен возвращать результат функции skill.use или же следующие строки:
-
-
-
