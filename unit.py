@@ -42,6 +42,18 @@ class BaseUnit(ABC):
         return f"{self.name} экипирован броней {self.armor.name}"
 
     def _count_damage(self, target: BaseUnit) -> int:
+        if self.stamina > self.weapon.stamina_per_hit:
+            self.stamina -= self.weapon.stamina_per_hit
+        else:
+            # не хватает стамины на удар
+            return 0
+        unit_damage = self.weapon.damage * self.unit_class.attack
+        if target.stamina > target.armor.stamina_per_turn:
+            target_armor = target.armor.stamina_per_turn * target.unit_class.armor
+        else:
+            target_armor = 0
+
+
 
         # TODO Эта функция должна содержать:
         #  логику расчета урона игрока
