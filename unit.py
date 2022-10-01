@@ -9,7 +9,7 @@ from typing import Optional
 
 class BaseUnit(ABC):
     """
-    Базовый класс юнита
+    Базовый класс юнета
     """
 
     def __init__(self, name: str, unit_class: UnitClass):
@@ -89,12 +89,12 @@ class BaseUnit(ABC):
 
     def use_skill(self, target: BaseUnit) -> str:
         """
-        метод использования умения.
-        если умение уже использовано возвращаем строку
+        Метод использования умения.
+        Если умение уже использовано возвращаем строку
         Навык использован
         Если же умение не использовано тогда выполняем функцию
         self.unit_class.skill.use(user=self, target=target)
-        и уже эта функция вернем нам строку которая характеризует выполнение умения
+        и уже эта функция вернем нам строку, которая характеризует выполнение умения
         """
         if self._is_skill_used:
             return "Навык использован"
@@ -111,7 +111,6 @@ class BaseUnit(ABC):
             self.stamina += stamina_growth
 
 
-
 class PlayerUnit(BaseUnit):
     pass
 
@@ -120,7 +119,7 @@ class EnemyUnit(BaseUnit):
 
     def hit(self, target: BaseUnit) -> str:
         """
-        функция удар соперника
+        Функция удар соперника
         должна содержать логику применения соперником умения
         (он должен делать это автоматически и только 1 раз за бой).
         Например, для этих целей можно использовать функцию randint из библиотеки random.
@@ -131,4 +130,4 @@ class EnemyUnit(BaseUnit):
             return self.use_skill(target)
         return super().hit(target)
 
-        # TODO результат функции должен возвращать результат функции skill.use или же следующие строки:
+    # TODO результат функции должен возвращать результат функции skill.use или же следующие строки:
