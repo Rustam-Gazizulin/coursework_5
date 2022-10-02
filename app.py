@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from base import Arena
 from classes import WarriorClass, ThiefClass, unit_classes
 from equipment import Equipment
-from unit import BaseUnit, PlayerUnit, EnemyUnit
+from unit import PlayerUnit, EnemyUnit
 
 app = Flask(__name__)
 
@@ -12,7 +12,7 @@ heroes = {
     "enemy": EnemyUnit(name="Компьютер", unit_class=ThiefClass)
 }
 
-arena = Arena  # TODO инициализируем класс арены
+arena = Arena()
 
 
 @app.route("/")
@@ -47,6 +47,8 @@ def use_skill():
     if arena.game_is_running:
         result = arena.player_use_skill()
         return render_template('fight.html', heroes=heroes, result=result)
+    else:
+        return redirect(url_for('end_fight'))
 
 
 @app.route("/fight/pass-turn")
@@ -54,6 +56,8 @@ def pass_turn():
     if arena.game_is_running:
         result = arena.next_turn()
         return render_template('fight.html', heroes=heroes, result=result)
+    else:
+        return redirect(url_for('end_fight'))
     # TODO кнопка пропус хода
     # TODO логика пркатикчески идентична предыдущему эндпоинту
     # TODO однако вызываем здесь функцию следующий ход (arena.next_turn())
@@ -83,8 +87,8 @@ def choose_hero():
         weapon_name = request.form['weapon']
         armor_name = request.form['armor']
         new_player = PlayerUnit(name=name, unit_class=unit_classes[chosen_unit_class])
-        new_player.equip_armor(Equipment.get_armor(armor_name))
-        new_player.equip_weapon(Equipment.get_weapon(weapon_name))
+        new_player.equip_armor(Equipment().get_armor(armor_name))
+        new_player.equip_weapon(Equipment().get_weapon(weapon_name))
         heroes['player'] = new_player
         return redirect(url_for('choose_enemy'))
 
@@ -102,21 +106,15 @@ def choose_enemy():
         armors = equipment.get_armors_names()
         classes = unit_classes
         return render_template('hero_choosing.html',
-                               result={
-                                   'header': header,
-                                   'weapons': weapons,
-                                   'armors': armors,
-                                   'classes': classes
-                               }
-                               )
+                               result={'header': header, 'weapons': weapons, 'armors': armors, 'classes': classes})
     if request.method == 'POST':
         name = request.form['name']
         chosen_unit_class = request.form['unit_class']
         weapon_name = request.form['weapon']
         armor_name = request.form['armor']
         new_enemy = EnemyUnit(name=name, unit_class=unit_classes[chosen_unit_class])
-        new_enemy.equip_armor(Equipment.get_armor(armor_name))
-        new_enemy.equip_weapon(Equipment.get_weapon(weapon_name))
+        new_enemy.equip_armor(Equipment().get_armor(armor_name))
+        new_enemy.equip_weapon(Equipment().get_weapon(weapon_name))
         heroes['enemy'] = new_enemy
         return redirect(url_for('start_fight'))
 

@@ -1,5 +1,6 @@
 from __future__ import annotations
-from abc import ABC, abstractmethod
+
+from abc import ABC
 from random import uniform
 
 from equipment import Weapon, Armor
@@ -48,6 +49,7 @@ class BaseUnit(ABC):
         self.stamina -= self.weapon.stamina_per_hit
 
         unit_damage = self.weapon.damage * self.unit_class.attack
+
         if target.stamina > target.armor.stamina_per_turn:
             target_armor = target.armor.defence * target.unit_class.armor
             target.stamina -= target.armor.stamina_per_turn
@@ -78,7 +80,7 @@ class BaseUnit(ABC):
         """
         Этот метод не будет переопределен ниже
         """
-        if self.stamina > self.weapon.stamina_per_hit:
+        if self.stamina >= self.weapon.stamina_per_hit:
             damage = self._count_damage(target)
             if damage > 0:
                 return f"{self.name} используя {self.weapon.name} пробивает {target.armor.name} соперника и наносит {damage} урона. "
