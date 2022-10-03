@@ -92,9 +92,9 @@ def choose_hero():
         heroes['player'] = new_player
         return redirect(url_for('choose_enemy'))
 
-    #  кнопка выбор героя. 2 метода GET и POST
+    #  Кнопка выбор героя. 2 метода GET и POST
     #  на GET обрисовываем форму.
-    #  на POST отправляем форму и делаем редирект на эндпоинт choose enemy
+    #  На POST отправляем форму и делаем редирект на эндпоинт choose enemy
 
 
 @app.route("/choose-enemy/", methods=['post', 'get'])
