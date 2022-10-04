@@ -1,0 +1,7 @@
+version: "3.9"
+
+services:
+  api:
+    image: rgazizulin/skywars:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    ports:
+      - 80:80
